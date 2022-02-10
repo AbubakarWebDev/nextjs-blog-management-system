@@ -1,3 +1,5 @@
+import styles from "./style.module.css";
+
 function SinglePost({title, img, author, content}) {
   return (
     <>
@@ -13,7 +15,7 @@ function SinglePost({title, img, author, content}) {
               Written By: <a href="#" className="text-indigo-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out"> {author.name} </a>
             </p>
             
-            <div dangerouslySetInnerHTML={{ __html: content }}></div>
+            <div className={styles.content} dangerouslySetInnerHTML={{ __html: content }}></div>
           </div>
         </div>
       </div>

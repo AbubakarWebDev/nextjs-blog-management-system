@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Navbar from "../../components/Navbar";
-import SinglePost from "../../components/SinglePost";
+import SinglePost from "../../components/SinglePost/SinglePost";
 
 export default function Post({ post }) {
   return (

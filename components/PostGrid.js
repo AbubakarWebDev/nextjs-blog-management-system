@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 function PostGrid({title, img, slug, date, author, id, description}) {
     return (
-    <div id={id} className="max-w-lg m-2 overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+    <div id={id} className="lg:max-w-lg h-[99%] mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
         <Link href={`/blog/${slug}`}>
             <a> <img className="object-cover w-full h-64" src={img} alt="Article" /> </a>
         </Link>

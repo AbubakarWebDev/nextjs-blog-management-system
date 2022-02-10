@@ -2,13 +2,13 @@
   "name": "nextjs-practice",
   "private": true,
   "scripts": {
-    "serve": "node server.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "serve-json": "json-server --watch ./json-server/db.json --port 4000",
-    "css": "npx tailwindcss -i ./styles/tailwind.css -o ./styles/globals.css --minify --watch"
+    "serve": "node server.js",
+    "serve:json": "json-server --watch ./json-server/db.json --port 4000",
+    "watch:css": "npx tailwindcss -i ./styles/tailwind.css -o ./styles/globals.css --minify --watch"
   },
   "dependencies": {
     "json-server": "^0.17.0",

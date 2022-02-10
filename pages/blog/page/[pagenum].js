@@ -3,6 +3,8 @@ import Navbar from "../../../components/Navbar";
 import PostGrid from "../../../components/PostGrid";
 import Pagination from "../../../components/Pagination";
 
+const limit = 3;
+
 export default function Blog({posts, page, total}) {
   return (
     <>
@@ -16,7 +18,7 @@ export default function Blog({posts, page, total}) {
       <div className="container mx-auto my-5">
         <div className="flex flex-wrap overflow-hidden">
             {posts.map((post) => (
-              <div key={post.id} className="w-full overflow-hidden md:w-1/2">
+              <div key={post.id} className="my-2 px-2 w-full overflow-hidden lg:w-1/3">
                 <PostGrid
                   id={post.id}
                   title={post.title}
@@ -31,8 +33,8 @@ export default function Blog({posts, page, total}) {
         </div>
 
         <Pagination
-          page={page}
-          limit={2}
+          page={1}
+          limit={limit}
           total={total}
         />
       </div>
@@ -53,7 +55,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:4000/posts?_page=${params.pagenum}&_limit=2`)
+  const res = await fetch(`http://localhost:4000/posts?_page=${params.pagenum}&_limit=${limit}`)
   const posts = await res.json()
 
   const recordsResponse = await fetch(`http://localhost:4000/meta`);
