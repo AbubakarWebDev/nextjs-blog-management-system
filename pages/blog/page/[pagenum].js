@@ -1,13 +1,13 @@
 import Head from 'next/head'
-import Navbar from "../../components/Navbar";
-import PostGrid from "../../components/PostGrid";
-import Pagination from "../../components/Pagination";
+import Navbar from "../../../components/Navbar";
+import PostGrid from "../../../components/PostGrid";
+import Pagination from "../../../components/Pagination";
 
-export default function Blog({posts, total}) {
+export default function Blog({posts, page, total}) {
   return (
     <>
       <Head>
-        <title>Blog</title>
+        <title>Blog Page </title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
@@ -31,7 +31,7 @@ export default function Blog({posts, total}) {
         </div>
 
         <Pagination
-          page={1}
+          page={page}
           limit={2}
           total={total}
         />
@@ -41,8 +41,19 @@ export default function Blog({posts, total}) {
   );
 };
 
-export async function getStaticProps() {
-  const res = await fetch('http://localhost:4000/posts?_page=1&_limit=2')
+export async function getStaticPaths() {
+  const res = await fetch(`http://localhost:4000/posts`);
+  const posts = await res.json();
+
+  const paths = posts.map((post, index) => ({
+    params: { pagenum: `${index + 1}` },
+  }))
+
+  return { paths, fallback: 'blocking' }
+}
+
+export async function getStaticProps({ params }) {
+  const res = await fetch(`http://localhost:4000/posts?_page=${params.pagenum}&_limit=2`)
   const posts = await res.json()
 
   const recordsResponse = await fetch(`http://localhost:4000/meta`);
@@ -51,6 +62,7 @@ export async function getStaticProps() {
   return {
     props: {
       posts,
+      page: parseInt(params.pagenum),
       total: json.totalrecords,
     },
   }
