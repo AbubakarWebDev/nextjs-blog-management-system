@@ -33,7 +33,7 @@ export default function Blog({posts, page, total}) {
         </div>
 
         <Pagination
-          page={1}
+          page={page}
           limit={limit}
           total={total}
         />
@@ -54,18 +54,21 @@ export async function getStaticPaths() {
   return { paths, fallback: 'blocking' }
 }
 
-export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:4000/posts?_page=${params.pagenum}&_limit=${limit}`)
-  const posts = await res.json()
+export async function getStaticProps({ params }) {  
+  const url = `http://localhost:4000/posts?_page=${params.pagenum}&_limit=${limit}`;
+  const postRespone = await fetch(url);
+  const isValidJson = postRespone.headers.get('content-type')?.includes('application/json');
+  const posts = isValidJson ? await postRespone.json() : null;
 
-  const recordsResponse = await fetch(`http://localhost:4000/meta`);
-  const json = await recordsResponse.json()
+  const metaResponse = await fetch(`http://localhost:4000/meta`);
+  const isJson = metaResponse.headers.get('content-type')?.includes('application/json');
+  const meta = isJson ? await metaResponse.json() : null;
 
   return {
     props: {
       posts,
       page: parseInt(params.pagenum),
-      total: json.totalrecords,
+      total: meta.totalrecords,
     },
   }
 }

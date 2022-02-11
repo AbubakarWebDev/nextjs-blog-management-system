@@ -1,5 +1,5 @@
 function Pagination({page, limit, total}) {
-
+    console.log(page);
     const totalPages = Math.ceil(total / limit);
     const prevPage = page - 1;
     const nextPage = page + 1;

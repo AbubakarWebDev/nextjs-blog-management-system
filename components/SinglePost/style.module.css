@@ -1,5 +1,18 @@
-.content .text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
+.content p {
+    font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+    line-height: 32px;
+    font-weight: 400;
+    font-size: 20px;
+    color: #292929;
+    margin-top: 20px;
+}
+
+.content h3 {
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    line-height: 28px;
+    color: #292929;
+    font-size: 22px;
+    margin-top: 20px;
 }
 

@@ -22,10 +22,10 @@ export default function Blog({posts, total}) {
                 <PostGrid
                   id={post.id}
                   title={post.title}
-                  img={post.img} 
+                  img={post.img}
                   slug={post.slug}
-                  date={post.publish_date} 
-                  author={post.author} 
+                  date={post.publish_date}
+                  author={post.author}
                   description={post.description}
                 />
               </div>

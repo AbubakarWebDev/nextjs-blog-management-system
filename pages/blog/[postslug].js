@@ -3,6 +3,14 @@ import Navbar from "../../components/Navbar";
 import SinglePost from "../../components/SinglePost/SinglePost";
 
 export default function Post({ post }) {
+
+  const disqusShortname = "abubakarwebdev"
+  const disqusConfig = {
+    url: "https://localhost:3000",
+    identifier: post.id,
+    title: post.title
+  }
+
   return (
     <>
       <Head>
@@ -14,6 +22,7 @@ export default function Post({ post }) {
       
       <SinglePost
         title={post.title}
+        slug={post.slug}
         img={post.img}
         author={post.author}
         content={post.content}
