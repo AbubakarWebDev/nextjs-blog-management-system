@@ -1,5 +1,4 @@
-import Head from 'next/head'
-import Navbar from "../../components/Navbar";
+import MainLayout from "../../components/MainLayout";
 import SinglePost from "../../components/SinglePost/SinglePost";
 
 export default function Post({ post }) {
@@ -13,20 +12,15 @@ export default function Post({ post }) {
 
   return (
     <>
-      <Head>
-        <title>Post</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      
-      <Navbar />
-      
-      <SinglePost
-        title={post.title}
-        slug={post.slug}
-        img={post.img}
-        author={post.author}
-        content={post.content}
-      />
+      <MainLayout title={post.title}>
+        <SinglePost
+          title={post.title}
+          slug={post.slug}
+          img={post.img}
+          author={post.author}
+          content={post.content}
+        />
+      </MainLayout>
     </>
   );
 };

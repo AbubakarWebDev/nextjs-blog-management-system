@@ -1,5 +1,13 @@
+import MainLayout from "../components/MainLayout";
+
 function Contact() {
-  return <h1>Contact</h1>;
+  return (
+    <>
+      <MainLayout>
+        Contact
+      </MainLayout>
+    </>
+  );
 }
 
 export default Contact;

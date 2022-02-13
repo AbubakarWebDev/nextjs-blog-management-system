@@ -1,5 +1,13 @@
+import MainLayout from "../components/MainLayout";
+
 function About() {
-  return <h1>About</h1>;
+  return (
+    <>
+      <MainLayout>
+        About
+      </MainLayout>
+    </>
+  );
 }
 
 export default About;

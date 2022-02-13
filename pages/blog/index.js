@@ -1,49 +1,24 @@
-import Head from 'next/head'
-import Navbar from "../../components/Navbar";
-import PostGrid from "../../components/PostGrid";
-import Pagination from "../../components/Pagination";
+import MainLayout from "../../components/MainLayout";
+import BlogLayout from "../../components/BlogLayout";
 
-const limit = 3;
-
-export default function Blog({posts, total}) {
+export default function Blog({posts, page, total, limit}) {
   return (
     <>
-      <Head>
-        <title>Blog</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-
-      <Navbar />
-
-      <div className="container mx-auto my-5">
-        <div className="flex flex-wrap overflow-hidden">
-            {posts.map((post) => (
-              <div key={post.id} className="my-2 px-2 w-full overflow-hidden lg:w-1/3">
-                <PostGrid
-                  id={post.id}
-                  title={post.title}
-                  img={post.img}
-                  slug={post.slug}
-                  date={post.publish_date}
-                  author={post.author}
-                  description={post.description}
-                />
-              </div>
-            ))}
-        </div>
-
-        <Pagination
-          page={1}
-          limit={limit}
+      <MainLayout title={`A blog about Technology & Entrepreneurship | AbubakarWebDev Blog`}>
+        <BlogLayout
+          posts={posts}
+          page={page}
           total={total}
+          limit={limit}
         />
-      </div>
-
+      </MainLayout>
     </>
   );
 };
 
 export async function getStaticProps() {
+  const limit = 3;
+  const page = 1;
   const res = await fetch(`http://localhost:4000/posts?_page=1&_limit=${limit}`);
   const posts = await res.json();
 
@@ -53,6 +28,8 @@ export async function getStaticProps() {
   return {
     props: {
       posts,
+      limit,
+      page,
       total: json.totalrecords,
     },
   }
