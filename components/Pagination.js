@@ -1,5 +1,4 @@
 function Pagination({page, limit, total}) {
-    console.log(page);
     const totalPages = Math.ceil(total / limit);
     const prevPage = page - 1;
     const nextPage = page + 1;
@@ -9,7 +8,7 @@ function Pagination({page, limit, total}) {
 
         for (let i = 1; i < totalPages + 1; i++) {
             items.push(
-                <a key={i} href={`/blog/page/${i}`} className={`px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-white rounded-md inline ${(i == page) ? 'bg-[#3b82f6] text-white' : 'bg-[#F3F4F6]'} dark:bg-gray-900 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200`}>{i}</a>
+                <a key={i} href={`/blog/page/${i}`} className={`px-4 py-2 mx-1 transition-colors duration-200 transform bg-white rounded-md inline ${(i == page) ? 'bg-[#3b82f6] text-white' : 'bg-[#F3F4F6] text-gray-700'} dark:bg-gray-900 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200`}>{i}</a>
             );
         }
 
