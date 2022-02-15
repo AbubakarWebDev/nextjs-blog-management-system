@@ -257,7 +257,7 @@ function Contact() {
           <div>
             <div>
               <span className="uppercase text-sm text-gray-600 font-bold">Full Name</span>
-              <input className="w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline" type="text" placeholder />
+              <input className="w-full bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline" type="text" />
             </div>
             <div className="mt-8">
               <span className="uppercase text-sm text-gray-600 font-bold">Email</span>
