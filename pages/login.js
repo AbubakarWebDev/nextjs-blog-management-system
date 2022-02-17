@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MainLayout from "../components/MainLayout";
+import MainLayout from "../components/WithLayout";
 import Modal from "../components/Modal/Modal";
 
 function Login() {
@@ -50,7 +50,8 @@ function Login() {
           </div>
           <p className="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <a href="#" className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Create One</a></p>
         </div>
-      <button onClick={() => setShow(true)}>Show Modal</button>
+
+        <button onClick={() => setShow(true)}>Show Modal</button>
         <Modal title="My Modal" onClose={() => setShow(false)} show={show}>
           <p>This is modal body</p>
         </Modal>

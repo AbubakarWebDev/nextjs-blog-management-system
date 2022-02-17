@@ -1,10 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-
-function Loader({ children }) {
-    const router = useRouter();
-    const [Loader, setLoader] = useState(children);
-    const preloader = (
+function Loader() {
+    return (
         <div className="flex justify-center items-center w-full h-screen">
             <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ margin: 'auto', background: 'transparent', display: 'block' }} width="150px" height="150px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                 <circle cx={75} cy={50} fill="#774023" r={5}>
@@ -69,23 +64,7 @@ function Loader({ children }) {
             </svg>
         </div>
     );
-
-    useEffect(() => {
-        const handleStart = (url) => (url !== router.asPath) && setLoader(preloader);
-        const handleComplete = (url) => (url === router.asPath) && setLoader(children);
-
-        router.events.on('routeChangeStart', handleStart)
-        router.events.on('routeChangeComplete', handleComplete)
-        router.events.on('routeChangeError', handleComplete)
-
-        return () => {
-            router.events.off('routeChangeStart', handleStart)
-            router.events.off('routeChangeComplete', handleComplete)
-            router.events.off('routeChangeError', handleComplete)
-        }
-    })
-
-    return Loader;
 }
 
 export default Loader;
+
