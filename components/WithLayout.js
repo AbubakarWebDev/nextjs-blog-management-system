@@ -4,8 +4,8 @@ import Header from "./Header";
 import Loader from "./Loader";
 import { useRouter } from 'next/router';
 
-const WithLayout = (OriginalComponent, data) => {
-  function NewComponent() {
+const WithLayout = (OriginalComponent, data) =>  {
+  function NewComponent(props) {
     const router = useRouter();
     const [Loading, setLoading] = useState(false);
 
@@ -37,7 +37,7 @@ const WithLayout = (OriginalComponent, data) => {
   
           <Header />
   
-          <main> <OriginalComponent /> </main>
+          <main> <OriginalComponent {...props} /> </main>
         </>
       );
     }

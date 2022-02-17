@@ -1,20 +1,27 @@
-import MainLayout from "../../../components/MainLayout";
+import WithLayout from "../../../components/WithLayout";
 import BlogLayout from "../../../components/BlogLayout";
 
-export default function Blog({posts, page, total, limit}) {
+
+const data = {};
+
+function Blog({posts, page, total, limit}) {
+
+  data.title = `A blog about Technology & Entrepreneurship | Page ${page} of ${total} | AbubakarWebDev Blog`;
+
   return (
     <>
-      <MainLayout title={`A blog about Technology & Entrepreneurship | Page ${page} of ${total} | AbubakarWebDev Blog`}>
-        <BlogLayout
-          posts={posts}
-          page={page}
-          total={total}
-          limit={limit}
-        />
-      </MainLayout>
+      <BlogLayout
+        posts={posts}
+        page={page}
+        total={total}
+        limit={limit}
+      />
     </>
   );
 };
+
+export default WithLayout(Blog, data);
+
 
 export async function getStaticPaths() {
   const res = await fetch(`http://localhost:4000/posts`);
@@ -26,6 +33,7 @@ export async function getStaticPaths() {
 
   return { paths, fallback: 'blocking' }
 }
+
 
 export async function getStaticProps({ params }) {
   const limit = 3

@@ -1,29 +1,25 @@
-import MainLayout from "../../components/MainLayout";
+import WithLayout from "../../components/WithLayout";
 import SinglePost from "../../components/SinglePost/SinglePost";
 
-export default function Post({ post }) {
+const data = {};
 
-  const disqusShortname = "abubakarwebdev"
-  const disqusConfig = {
-    url: "https://localhost:3000",
-    identifier: post.id,
-    title: post.title
-  }
+function Post({ post }) {
+  data.title = post.title;
 
   return (
     <>
-      <MainLayout title={post.title}>
-        <SinglePost
-          title={post.title}
-          slug={post.slug}
-          img={post.img}
-          author={post.author}
-          content={post.content}
-        />
-      </MainLayout>
+      <SinglePost
+        title={post.title}
+        slug={post.slug}
+        img={post.img}
+        author={post.author}
+        content={post.content}
+      />
     </>
   );
 };
+
+export default WithLayout(Post, data);
 
 export async function getStaticPaths() {
   const res = await fetch(`http://localhost:4000/posts`);

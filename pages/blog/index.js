@@ -1,20 +1,27 @@
-import MainLayout from "../../components/MainLayout";
+import WithLayout from "../../components/WithLayout";
 import BlogLayout from "../../components/BlogLayout";
 
-export default function Blog({posts, page, total, limit}) {
+
+const data = {};
+
+function Blog({posts, page, total, limit}) {
+
+  data.title = "A blog about Technology & Entrepreneurship | AbubakarWebDev Blog";
+
   return (
     <>
-      <MainLayout title={`A blog about Technology & Entrepreneurship | AbubakarWebDev Blog`}>
-        <BlogLayout
-          posts={posts}
-          page={page}
-          total={total}
-          limit={limit}
-        />
-      </MainLayout>
+      <BlogLayout
+        posts={posts}
+        page={page}
+        total={total}
+        limit={limit}
+      />
     </>
   );
 };
+
+export default WithLayout(Blog, data);
+
 
 export async function getStaticProps() {
   const limit = 3;
@@ -23,14 +30,14 @@ export async function getStaticProps() {
   const posts = await res.json();
 
   const recordsResponse = await fetch(`http://localhost:4000/meta`);
-  const json = await recordsResponse.json()
+  const meta = await recordsResponse.json()
 
   return {
     props: {
       posts,
       limit,
       page,
-      total: json.totalrecords,
+      total: meta.totalrecords,
     },
   }
 }
