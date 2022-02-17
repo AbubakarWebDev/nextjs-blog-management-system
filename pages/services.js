@@ -3,7 +3,7 @@ import MainLayout from "../components/MainLayout";
 function Services() {
   return (
     <>
-      <MainLayout>
+      <MainLayout title='Services'>
         <section className="dark:bg-gray-900">
           <div className="container px-6 pb-10 mx-auto">
             <div className="lg:flex lg:items-center">

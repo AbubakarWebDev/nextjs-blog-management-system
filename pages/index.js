@@ -3,7 +3,7 @@ import MainLayout from "../components/MainLayout";
 function Home() {
   return (
     <>
-      <MainLayout>
+      <MainLayout title="Home">
         <section className="bg-white dark:bg-gray-800 border-b-2 border-[#e5e7eb]">
           <div className="lg:flex container mx-auto px-6">
             <div className="flex items-center justify-center lg:text-left text-center lg:justify-start w-full pr-6 py-8 lg:h-[32rem] lg:w-1/2">

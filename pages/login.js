@@ -1,9 +1,13 @@
+import React, { useState } from "react";
 import MainLayout from "../components/MainLayout";
+import Modal from "../components/Modal/Modal";
 
 function Login() {
+  const [show, setShow] = useState(false); 
+
   return (
     <>
-      <MainLayout>
+      <MainLayout title="Login">
         <div className="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-lg dark:bg-gray-800">
           <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">BKR BLOG</h1>
           <form className="mt-6">
@@ -46,7 +50,12 @@ function Login() {
           </div>
           <p className="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <a href="#" className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Create One</a></p>
         </div>
+      <button onClick={() => setShow(true)}>Show Modal</button>
+        <Modal title="My Modal" onClose={() => setShow(false)} show={show}>
+          <p>This is modal body</p>
+        </Modal>
       </MainLayout>
+
     </>
   );
 }

@@ -6,6 +6,7 @@ function Document() {
       <Head />
       <body>
         <Main />
+        <div id='model' />
         <NextScript />
       </body>
     </Html>
