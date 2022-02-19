@@ -2,11 +2,11 @@ import WithLayout from "../../components/WithLayout";
 import BlogLayout from "../../components/BlogLayout";
 
 
-const data = {};
+const data = {
+  title: "A blog about Technology & Entrepreneurship | AbubakarWebDev Blog"
+};
 
 function Blog({posts, page, total, limit}) {
-
-  data.title = "A blog about Technology & Entrepreneurship | AbubakarWebDev Blog";
 
   return (
     <>
