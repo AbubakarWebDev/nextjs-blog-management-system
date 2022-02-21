@@ -1,4 +1,4 @@
-import WithLayout from "../components/WithLayout";
+import WithLayout from "../HOC/WithLayout";
 
 function Signup() {
   return (
@@ -39,4 +39,4 @@ function Signup() {
   );
 }
 
-export default WithLayout(Signup, {title: "Signup Page",});
+export default WithLayout(Signup, {title: "Signup Page"});

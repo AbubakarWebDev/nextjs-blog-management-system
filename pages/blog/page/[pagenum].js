@@ -1,4 +1,4 @@
-import WithLayout from "../../../components/WithLayout";
+import WithLayout from "../../../HOC/WithLayout";
 import BlogLayout from "../../../components/BlogLayout";
 
 

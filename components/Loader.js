@@ -1,7 +1,7 @@
-function Loader() {
+function Loader(props) {
     return (
         <div className="flex justify-center items-center w-full h-screen">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ margin: 'auto', background: 'transparent', display: 'block' }} width="150px" height="150px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ margin: 'auto', background: 'transparent', display: 'block' }} width={props.width} height={props.height} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                 <circle cx={75} cy={50} fill="#774023" r={5}>
                     <animate attributeName="r" values="3;3;5;3;3" times="0;0.1;0.2;0.3;1" dur="1s" repeatCount="indefinite" begin="-0.9166666666666666s" />
                     <animate attributeName="fill" values="#774023;#774023;#1d0e0b;#774023;#774023" repeatCount="indefinite" times="0;0.1;0.2;0.3;1" dur="1s" begin="-0.9166666666666666s" />

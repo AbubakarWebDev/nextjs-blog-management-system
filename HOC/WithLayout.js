@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Head from "next/head";
-import Header from "./Header";
-import Loader from "./Loader";
+import Header from "../components/Header";
+import Loader from "../components/Loader";
 import { useRouter } from 'next/router';
 
-const WithLayout = (OriginalComponent, data) =>  {
+const WithLayout = (OriginalComponent, data) => {
   function NewComponent(props) {
     const router = useRouter();
     const [Loading, setLoading] = useState(false);
@@ -18,25 +18,25 @@ const WithLayout = (OriginalComponent, data) =>  {
       router.events.on('routeChangeError', handleComplete)
 
       return () => {
-          router.events.off('routeChangeStart', handleStart)
-          router.events.off('routeChangeComplete', handleComplete)
-          router.events.off('routeChangeError', handleComplete)
+        router.events.off('routeChangeStart', handleStart)
+        router.events.off('routeChangeComplete', handleComplete)
+        router.events.off('routeChangeError', handleComplete)
       }
     });
 
     if (Loading) {
-      return <Loader />;
-    } 
+      return <Loader width='150px' height='150px' />;
+    }
     else {
       return (
         <>
           <Head>
-            <title>{ data.title }</title>
+            <title>{data.title}</title>
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           </Head>
-  
+
           <Header />
-  
+
           <main> <OriginalComponent {...props} /> </main>
         </>
       );

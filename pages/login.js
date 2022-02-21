@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import WithLayout from "../components/WithLayout";
-import Modal from "../components/Modal/Modal";
+import WithLayout from "../HOC/WithLayout";
+import Modal from "../components/Modal";
 import AlertPopup from "../components/AlertPopup";
 import LoginForm from "../components/LoginForm";
 
@@ -8,7 +8,7 @@ function Login() {
   const [show, setShow] = useState(false);
 
   return (
-    <>
+    <> 
       <div className="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-lg dark:bg-gray-800">
         <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">BKR BLOG</h1>
         <form className="mt-6">
@@ -52,11 +52,11 @@ function Login() {
         <p className="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <a href="#" className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Create One</a></p>
       </div>
 
-      <button onClick={() => setShow(true)}>Show Modal</button>
-
+      {/* <button onClick={() => setShow(true)}>Show Modal</button>
       <Modal onClose={() => setShow(false)} show={show}>
-        <AlertPopup />
-      </Modal>
+        <AlertPopup onClose={() => setShow(false)} />
+        <LoginForm />
+      </Modal> */}
     </>
   );
 }
