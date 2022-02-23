@@ -1,4 +1,5 @@
 import WithLayout from "../HOC/WithLayout";
+import Link from 'next/link'
 
 function Signup() {
   return (
@@ -33,7 +34,11 @@ function Signup() {
           </div>
         </form>
         
-        <p className="mt-8 text-xs font-light text-center text-gray-400"> Already have an account? <a href="#" className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Login</a></p>
+        <p className="mt-8 text-xs font-light text-center text-gray-400"> Already have an account?  
+        <Link href='/login'>
+          <a className="font-medium text-gray-700 dark:text-gray-200 hover:underline"> Login</a>
+        </Link>
+        </p>
       </div>
     </>
   );

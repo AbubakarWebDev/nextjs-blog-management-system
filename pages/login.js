@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react"
 import WithLayout from "../HOC/WithLayout";
+import { useAuth } from "../contexts/UserContext"
+import Link from 'next/link'
 
 function Login() {
   const emailRef = useRef();
@@ -9,10 +11,16 @@ function Login() {
   const [emailError, setEmailError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e) {
+  const { login } = useAuth()
+
+  async function handleSubmit(e) {
     e.preventDefault();
     setEmailError(emailRef.current.value == "" ? "* Email Field is Required" : null);
     setPassError(passwordRef.current.value == "" ? "* Password Field is Required" : null);
+
+    if (!(emailError && passError)) {
+      
+    }
   }
 
   return (
@@ -25,6 +33,7 @@ function Login() {
             <input type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" ref={emailRef} />
           </div>
           {emailError && <b className='text-sm'>{emailError}</b>}
+          
           <div className="mt-4">
             <div className="flex items-center justify-between">
               <label htmlFor="password" className="block text-sm text-gray-800 dark:text-gray-200">Password</label>
@@ -33,6 +42,7 @@ function Login() {
             <input type="password" ref={passwordRef} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
           {passError && <b className='text-sm'>{passError}</b>}
+
           <div className="mt-6">
             <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
               Login
@@ -59,7 +69,11 @@ function Login() {
             </svg>
           </a>
         </div>
-        <p className="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <a href="#" className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Create One</a></p>
+        <p className="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account?  
+        <Link href='/signup'>
+          <a className="font-medium text-gray-700 dark:text-gray-200 hover:underline"> Create One</a>
+        </Link>
+        </p>
       </div>
     </>
   );
