@@ -44,3 +44,17 @@ const Modal = ({ onClose, show, title, children, footer }) => {
 };
 
 export default Modal;
+
+
+/*---------------- HOW TO USE THIS Component ---------------------
+
+const [show, setShow] = useState(false);
+
+<button onClick={() => setShow(true)}>Show Modal</button>
+
+<Modal onClose={() => setShow(false)} show={show}>
+    <AlertPopup onClose={() => setShow(false)} />
+    <LoginForm />
+</Modal>
+
+----------------------------------------------------------------*/
