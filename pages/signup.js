@@ -39,4 +39,4 @@ function Signup() {
   );
 }
 
-export default WithLayout(Signup, {title: "Signup Page"});
+export default WithLayout(Signup, {title: "Signup"});
