@@ -3,6 +3,7 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
 import { useRouter } from 'next/router';
+import UserContext from "../contexts/UserContext";
 
 const WithLayout = (OriginalComponent, data) => {
   function NewComponent(props) {
@@ -37,7 +38,11 @@ const WithLayout = (OriginalComponent, data) => {
 
           <Header />
 
-          <main> <OriginalComponent {...props} /> </main>
+          <main> 
+            <UserContext>
+              <OriginalComponent {...props} />
+            </UserContext>
+          </main>
         </>
       );
     }
