@@ -3,6 +3,7 @@ import { EditorState, ContentState, convertToRaw } from "draft-js";
 import dynamic from 'next/dynamic';
 import Loader from '../Loader';
 import draftToHtml from 'draftjs-to-html';
+import useMounted from "../../hooks/useMounted";
 
 const Editor = dynamic(
   () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -15,7 +16,7 @@ import "../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import styles from "./style.module.css";
 
 function editor(props) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   useEffect(() => {
@@ -30,12 +31,6 @@ function editor(props) {
         return EditorState.createEmpty()
       }
     });
-
-    setMounted(true);
-
-    return function cleanup() {
-      setMounted(false);
-    };
   }, []);
 
   function onEditorStateChange(editorState) {

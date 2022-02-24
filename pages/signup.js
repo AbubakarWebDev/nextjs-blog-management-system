@@ -1,7 +1,12 @@
+import React, { useState } from "react";
 import WithLayout from "../HOC/WithLayout";
 import Link from 'next/link'
+import Modal from '../components/Modal';
+import AlertPopup from '../components/AlertPopup';
 
 function Signup() {
+  const [show, setShow] = useState(false);
+
   return (
     <>
       <div className="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-lg dark:bg-gray-800">
@@ -40,6 +45,13 @@ function Signup() {
         </Link>
         </p>
       </div>
+
+      <button onClick={() => setShow(true)}>Show Modal</button>
+
+      <Modal onClose={() => setShow(false)} show={show}>
+          <AlertPopup onClose={() => setShow(false)} />
+          {/* <LoginForm /> */}
+      </Modal>
     </>
   );
 }

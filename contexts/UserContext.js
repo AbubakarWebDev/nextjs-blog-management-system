@@ -1,30 +1,52 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../config/firebase";
+import {
+    createUserWithEmailAndPassword,
+    reauthenticateWithCredential,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    sendEmailVerification,
+    confirmPasswordReset,
+    EmailAuthProvider,
+    onAuthStateChanged,
+    signInWithPopup,
+    GoogleAuthProvider,
+    updateProfile,
+    deleteUser,
+    signOut,
+} from 'firebase/auth'
+
 
 const AuthContext = React.createContext();
-
-export function useAuth() {
-    return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext);
 
 function UserContext({ children }) {
     const [currentUser, setCurrentUser] = useState();
-    const [loading, setLoading] = useState(true)
 
     function signup(email, password) {
-        return auth.createUserWithEmailAndPassword(email, password)
+        return createUserWithEmailAndPassword(auth, email, password)
     }
 
     function login(email, password) {
-        return auth.signInWithEmailAndPassword(email, password)
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    function sendEmailVerification(user) {
+        return sendEmailVerification(user);
     }
 
     function logout() {
-        return auth.signOut()
+        return signOut(auth)
     }
 
-    function resetPassword(email) {
-        return auth.sendPasswordResetEmail(email)
+    function forgotPassword(email) {
+        return sendPasswordResetEmail(auth, email, {
+            url: `http://localhost:3000/login`,
+        })
+    }
+
+    function resetPassword(oobCode, newPassword) {
+        return confirmPasswordReset(auth, oobCode, newPassword)
     }
 
     function updateEmail(email) {
@@ -35,10 +57,23 @@ function UserContext({ children }) {
         return currentUser.updatePassword(password)
     }
 
+    function reAuthenticateUser(user, password) {
+        const credential = EmailAuthProvider.credential(
+            currentUser.email,
+            password
+        );
+
+        return reauthenticateWithCredential(user, credential)
+    }
+
+    function signInWithGoogle() {
+        const provider = new GoogleAuthProvider()
+        return signInWithPopup(auth, provider)
+    }
+
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-            setLoading(false)
+        const unsubscribe = onAuthStateChanged(auth, user => {
+            setCurrentUser(user ? user : null)
         });
 
         return unsubscribe
@@ -49,14 +84,18 @@ function UserContext({ children }) {
         login,
         signup,
         logout,
+        forgotPassword,
         resetPassword,
         updateEmail,
-        updatePassword
+        updatePassword,
+        signInWithGoogle,
+        reAuthenticateUser,
+        sendEmailVerification,
     }
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 }

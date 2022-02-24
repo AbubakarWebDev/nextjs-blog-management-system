@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import useMounted from "../hooks/useMounted";
 
 const Modal = ({ onClose, show, title, children, footer }) => {
-    const [mounted, setMounted] = useState(false);
+    const mounted = useMounted();
 
     const closeOnEscapeKeyDown = e => {
         if ((e.charCode || e.keyCode) === 27) {
@@ -11,12 +12,10 @@ const Modal = ({ onClose, show, title, children, footer }) => {
     };
 
     useEffect(() => {
-        setMounted(true);
         document.body.addEventListener("keydown", closeOnEscapeKeyDown);
 
         return function cleanup() {
             document.body.removeEventListener("keydown", closeOnEscapeKeyDown);
-            setMounted(false);
         };
     }, []);
 

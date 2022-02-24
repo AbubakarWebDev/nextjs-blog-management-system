@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useToggle(defaultValue) {
+function useToggle(defaultValue) {
     const [value, setValue] = useState(defaultValue)
 
     function toggleValue(value) {
@@ -12,11 +12,13 @@ export default function useToggle(defaultValue) {
     return [value, toggleValue]
 }
 
+export default useToggle;
+
 
 /*--------------------- HOW TO USE THIS HOOK ---------------------
-import useToggle from "./useToggle"
+import useToggle from "./hooks/useToggle"
 
-export default function ToggleComponent() {
+function ExampleComponent() {
   const [value, toggleValue] = useToggle(false)
 
   return (
@@ -28,4 +30,6 @@ export default function ToggleComponent() {
     </div>
   )
 }
+
+export default ExampleComponent;
 ----------------------------------------------------------------*/
