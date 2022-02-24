@@ -41,7 +41,7 @@ function UserContext({ children }) {
 
     function forgotPassword(email) {
         return sendPasswordResetEmail(auth, email, {
-            url: `http://localhost:3000/login`,
+            url: `${process.env.NEXT_PUBLIC_HOST}/login`,
         })
     }
 
