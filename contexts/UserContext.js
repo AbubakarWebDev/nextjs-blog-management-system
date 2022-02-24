@@ -31,7 +31,7 @@ function UserContext({ children }) {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    function sendEmailVerification(user) {
+    function sendEmailForVerification(user) {
         return sendEmailVerification(user);
     }
 
@@ -90,7 +90,7 @@ function UserContext({ children }) {
         updatePassword,
         signInWithGoogle,
         reAuthenticateUser,
-        sendEmailVerification,
+        sendEmailForVerification,
     }
 
     return (
