@@ -11,7 +11,7 @@ function useMounted() {
         }
     }, [])
 
-    return mounted.current;
+    return mounted;
 }
 
 export default useMounted;
