@@ -7,6 +7,11 @@ function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  const [values, setValues] = useState({
+    email: null,
+    pass: null
+  });
+
   const [passError, setPassError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [loading, setLoading] = useState(false);
