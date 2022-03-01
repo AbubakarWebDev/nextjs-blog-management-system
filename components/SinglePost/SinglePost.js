@@ -5,7 +5,7 @@ function SinglePost({ id, slug, title, img, author, content }) {
 
   const disqusShortname = "abubakarwebdev"
   const disqusConfig = {
-    url: `http://localhost:3000/blog/${slug}`,
+    url: `${process.env.NEXT_PUBLIC_HOST}/blog/${slug}`,
     identifier: id,
     title: title
   }
