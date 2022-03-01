@@ -1,53 +1,35 @@
-import React, { useRef, useState } from "react"
 import WithLayout from "../HOC/WithLayout";
 import { useAuth } from "../contexts/UserContext"
 import Link from 'next/link'
+import { useForm } from "react-hook-form";
 
 function Login() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-
-  const [values, setValues] = useState({
-    email: null,
-    pass: null
-  });
-
-  const [passError, setPassError] = useState(null);
-  const [emailError, setEmailError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { login } = useAuth()
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    setEmailError(emailRef.current.value == "" ? "* Email Field is Required" : null);
-    setPassError(passwordRef.current.value == "" ? "* Password Field is Required" : null);
-
-    if (emailError == null && passError == null) {
-      console.log("ok hai")
-    }
+  
+  const onSubmit = data => {
+    console.log(data);
   }
-
+  
   return (
     <> 
       <div className="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-lg dark:bg-gray-800">
         <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">BKR BLOG</h1>
-        <form className="mt-6" onSubmit={handleSubmit}>
+        <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label htmlFor="username" className="block text-sm text-gray-800 dark:text-gray-200">Email</label>
-            <input type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" ref={emailRef} />
+            <input id='username' type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" {...register("username", { required: true })} />
           </div>
-          {emailError && <b className='text-sm text-red-500'>{emailError}</b>}
+          {errors.username && <b className='text-sm text-red-500'>* Username Field is required</b>}
           
           <div className="mt-4">
             <div className="flex items-center justify-between">
               <label htmlFor="password" className="block text-sm text-gray-800 dark:text-gray-200">Password</label>
               <a href="#" className="text-xs text-gray-600 dark:text-gray-400 hover:underline">Forget Password?</a>
             </div>
-            <input type="password" ref={passwordRef} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input id='password' type="password" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" {...register("password", { required: true })} />
           </div>
-          {passError && <b className='text-sm text-red-500'>{passError}</b>}
+          {errors.password && <b className='text-sm text-red-500'>* Password Field is required</b>}
 
           <div className="mt-6">
             <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
