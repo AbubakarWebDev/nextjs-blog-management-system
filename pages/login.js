@@ -1,13 +1,50 @@
-import WithLayout from "../HOC/WithLayout";
-import { useAuth } from "../contexts/UserContext"
 import Link from 'next/link'
+import React, { useState } from "react";
+import Input from '../components/Input';
+import WithLayout from "../HOC/WithLayout";
+
 import { useForm } from "react-hook-form";
+import { useAuth } from "../contexts/UserContext";
 
 function Login() {
+  const [error, setError] = useState(null);
+
+  const { login } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { login } = useAuth()
+
+  const form = [
+    {
+      id: "email",
+      type: "text",
+      label: "Email",
+      register: register,
+      errors: errors,
+      validation: {
+        required: "* Email Field is Required!",
+        pattern: {
+          value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+          message: "Invalid email address!"
+        }
+      }
+    },
+    {
+      id: "password",
+      type: "password",
+      label: "Password",
+      register: register,
+      errors: errors,
+      validation: {
+        required: "* Password Field is Required!",
+        minLength: {
+          value: 8,
+          message: "Password Must At Least 8 Characters Long!"
+        }
+      }
+    }
+  ];
   
   const onSubmit = data => {
+    setError(null);
     console.log(data);
   }
   
@@ -15,21 +52,11 @@ function Login() {
     <> 
       <div className="w-full max-w-sm p-6 m-auto bg-white rounded-md shadow-lg dark:bg-gray-800">
         <h1 className="text-3xl font-semibold text-center text-gray-700 dark:text-white">BKR BLOG</h1>
+
+        {error && <Alert type='danger' message={error} prefix="Error!" className='mt-6' />}
+
         <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label htmlFor="username" className="block text-sm text-gray-800 dark:text-gray-200">Email</label>
-            <input id='username' type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" {...register("username", { required: true })} />
-          </div>
-          {errors.username && <b className='text-sm text-red-500'>* Username Field is required</b>}
-          
-          <div className="mt-4">
-            <div className="flex items-center justify-between">
-              <label htmlFor="password" className="block text-sm text-gray-800 dark:text-gray-200">Password</label>
-              <a href="#" className="text-xs text-gray-600 dark:text-gray-400 hover:underline">Forget Password?</a>
-            </div>
-            <input id='password' type="password" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" {...register("password", { required: true })} />
-          </div>
-          {errors.password && <b className='text-sm text-red-500'>* Password Field is required</b>}
+          {form.map(elem => <Input key={elem.id} {...elem} />)}
 
           <div className="mt-6">
             <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
@@ -37,6 +64,7 @@ function Login() {
             </button>
           </div>
         </form>
+
         <div className="flex items-center justify-between mt-4">
           <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/5" />
           <a href="#" className="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline">or login with Social Media</a>

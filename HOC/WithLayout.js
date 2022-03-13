@@ -9,10 +9,12 @@ const WithLayout = (OriginalComponent, data) => {
   function NewComponent(props) {
     const router = useRouter();
     const [Loading, setLoading] = useState(false);
+    const [preLoading, setPreLoading] = useState(true);
 
     useEffect(() => {
-      const handleStart = (url) => (url !== router.asPath) && setLoading(true);
-      const handleComplete = (url) => (url === router.asPath) && setLoading(false);
+      setPreLoading(false);
+      const handleStart = () => setLoading(true);
+      const handleComplete = () => setLoading(false);
 
       router.events.on('routeChangeStart', handleStart)
       router.events.on('routeChangeComplete', handleComplete)
@@ -25,7 +27,7 @@ const WithLayout = (OriginalComponent, data) => {
       }
     });
 
-    if (Loading) {
+    if (Loading || preLoading) {
       return <Loader width='150px' height='150px' />;
     }
     else {

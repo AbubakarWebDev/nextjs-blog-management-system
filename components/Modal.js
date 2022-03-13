@@ -21,7 +21,7 @@ const Modal = ({ onClose, show, title, children, footer }) => {
 
     return mounted.current && show ? createPortal(
         <div id="modal" className="w-full h-screen flex justify-center items-center fixed right-0 left-0 top-0 bottom-0 z-50 bg-gray-900/60" onClick={onClose}>
-            <div className="relative px-4 w-full max-w-lg h-full h-auto" onClick={e => e.stopPropagation()}>
+            <div className="relative px-4 w-full max-w-lg h-full" onClick={e => e.stopPropagation()}>
                 <div id='modalContent' className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <div id='modalHeader' className="flex justify-between items-start p-3 rounded-t border-b dark:border-gray-600">
                         {title && <h3 className="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
@@ -52,8 +52,7 @@ const [show, setShow] = useState(false);
 <button onClick={() => setShow(true)}>Show Modal</button>
 
 <Modal onClose={() => setShow(false)} show={show}>
-    <AlertPopup onClose={() => setShow(false)} />
-    <LoginForm />
+    <ConfirmationPopup onClose={() => setShow(false)} />
 </Modal>
 
 ----------------------------------------------------------------*/
