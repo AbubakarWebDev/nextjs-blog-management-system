@@ -19,7 +19,7 @@ const Modal = ({ onClose, show, title, children, footer }) => {
         };
     }, []);
 
-    return mounted.current && show ? createPortal(
+    return (mounted.current && show) ? createPortal(
         <div id="modal" className="w-full h-screen flex justify-center items-center fixed right-0 left-0 top-0 bottom-0 z-50 bg-gray-900/60" onClick={onClose}>
             <div className="relative px-4 w-full max-w-lg h-full" onClick={e => e.stopPropagation()}>
                 <div id='modalContent' className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -38,7 +38,7 @@ const Modal = ({ onClose, show, title, children, footer }) => {
                 </div>
             </div>
         </div>,
-        document.getElementById("model")
+        document.getElementById("modal")
     ) : null;
 };
 

@@ -4,25 +4,23 @@ import Alert from '../components/Alert';
 import Input from '../components/Input';
 import WithLayout from "../HOC/WithLayout";
 
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { useForm } from "react-hook-form";
-import { useAuth } from "../contexts/UserContext";
+import useAuth from "../hooks/useAuth";
 
 function Signup() {
   const router = useRouter()
   const { signup } = useAuth();
-
   const [error, setError] = useState(null);
-
   const { register, watch, handleSubmit, formState: { errors } } = useForm();
 
   const form = [
     {
-      id: "username",
       type: "text",
+      id: "username",
       label: "Username",
-      register: register,
       errors: errors,
+      register: register,
       validation: {
         required: "* Username Field is Required!"
       }
@@ -67,10 +65,7 @@ function Signup() {
           value: 8,
           message: "Confirm Password Must At Least 8 Characters Long!"
         },
-        validate: {
-          value: value => value == watch('Password'),
-          message: "Confirm Password is Not Matched!"
-        }
+        validate: value => value == watch("password") || "The Passwords do not match!"
       }
     }
   ]
@@ -80,14 +75,12 @@ function Signup() {
 
     await signup(data.email, data.password).then((userCredential) => {
       const user = userCredential.user;
-      console.log(user);
+      router.push('/login');
     })
     .catch(({message}) => {
       setError("Failed to create an account");
       console.log(message);
     });
-
-    setLoading(false);
   }
 
   return (

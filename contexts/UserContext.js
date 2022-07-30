@@ -1,3 +1,4 @@
+import useMounted from "../hooks/useMounted";
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../config/firebase";
 import {
@@ -17,11 +18,12 @@ import {
 } from 'firebase/auth'
 
 
-const AuthContext = React.createContext();
-export const useAuth = () => useContext(AuthContext);
+export const AuthContext = React.createContext();
 
 function UserContext({ children }) {
-    const [currentUser, setCurrentUser] = useState();
+    const [loading, setLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState(null);
+    const { mounted } = useMounted();
 
     function signup(email, password) {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -73,16 +75,20 @@ function UserContext({ children }) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
-            setCurrentUser(user ? user : null)
+            setCurrentUser(user ? user : null);
+            setLoading(false);
         });
 
-        return unsubscribe
+        return () => {
+            unsubscribe();
+        }
     }, [])
 
     const value = {
         login,
         signup,
         logout,
+        loading,
         updateEmail,
         currentUser,
         resetPassword,

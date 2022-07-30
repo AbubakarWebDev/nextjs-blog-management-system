@@ -1,13 +1,18 @@
 import Link from 'next/link'
 import React, { useState } from "react";
 import Input from '../components/Input';
+import ConfirmationPopup from '../components/ConfirmationPopup';
+import Modal from '../components/Modal';
 import WithLayout from "../HOC/WithLayout";
 
+import { useRouter } from 'next/router';
 import { useForm } from "react-hook-form";
-import { useAuth } from "../contexts/UserContext";
+import useAuth from "../hooks/useAuth";
 
 function Login() {
+  const router = useRouter();
   const [error, setError] = useState(null);
+  const [show, setShow] = useState(false);
 
   const { login } = useAuth();
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -43,9 +48,17 @@ function Login() {
     }
   ];
   
-  const onSubmit = data => {
+  const onSubmit = async data => {
     setError(null);
-    console.log(data);
+
+    await login(data.email, data.password).then((userCredential) => {
+      const user = userCredential.user;
+      router.push('/profile');
+    })
+    .catch(({message}) => {
+      setError("Email/Password does not mached!");
+      console.log(message);
+    });
   }
   
   return (
@@ -91,6 +104,12 @@ function Login() {
         </Link>
         </p>
       </div>
+
+<button onClick={() => setShow(true)}>Show Modal</button>
+
+<Modal onClose={() => setShow(false)} show={show}>
+    <ConfirmationPopup onClose={() => setShow(false)} />
+</Modal>
     </>
   );
 }

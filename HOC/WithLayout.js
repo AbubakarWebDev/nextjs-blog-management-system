@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
 import Head from "next/head";
+import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+
 import Header from "../components/Header";
 import Loader from "../components/Loader";
-import { useRouter } from 'next/router';
 import UserContext from "../contexts/UserContext";
 
-const WithLayout = (OriginalComponent, data) => {
-  function NewComponent(props) {
+function WithLayout(OriginalComponent, data) {
+  return function NewComponent(props) {
     const router = useRouter();
     const [Loading, setLoading] = useState(false);
-    const [preLoading, setPreLoading] = useState(true);
+    const [preloader, setPreloader] = useState(true);
 
     useEffect(() => {
-      setPreLoading(false);
       const handleStart = () => setLoading(true);
       const handleComplete = () => setLoading(false);
 
-      router.events.on('routeChangeStart', handleStart)
-      router.events.on('routeChangeComplete', handleComplete)
-      router.events.on('routeChangeError', handleComplete)
+      router.events.on('routeChangeStart', handleStart);
+      router.events.on('routeChangeComplete', handleComplete);
+      router.events.on('routeChangeError', handleComplete);
+
+      setTimeout(() => setPreloader(true), 1000);
 
       return () => {
         router.events.off('routeChangeStart', handleStart)
@@ -27,29 +29,22 @@ const WithLayout = (OriginalComponent, data) => {
       }
     });
 
-    if (Loading || preLoading) {
-      return <Loader width='150px' height='150px' />;
-    }
-    else {
-      return (
-        <>
-          <Head>
-            <title>{data.title}</title>
-            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          </Head>
+    return Loading ? <Loader width='150px' height='150px' /> : (
+      <>
+        <Head>
+          <title>{data.title}</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
 
+        <UserContext>
           <Header />
-
-          <main> 
-            <UserContext>
-              <OriginalComponent {...props} />
-            </UserContext>
+          <main>  
+            <OriginalComponent {...props} />
           </main>
-        </>
-      );
-    }
+        </UserContext>
+      </>
+    );
   }
-  return NewComponent;
 }
 
 export default WithLayout;

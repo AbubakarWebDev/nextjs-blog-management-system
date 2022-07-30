@@ -23,7 +23,7 @@ function ExampleComponent() {
   const mounted = useMounted()
 
   return (
-      mounted && <div>Render Componenet</div>
+      mounted.current && <div>Render Componenet</div>
   )
 }
 

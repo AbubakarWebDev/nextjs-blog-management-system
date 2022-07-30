@@ -21,7 +21,7 @@ function ArticleEditor(props) {
           onEditorChange={() => {
             props.handleContent(editorRef.current.getContent());
           }}
-          initialValue={props.initialContent}
+          value={props.initialContent}
           init={{
             height: 500,
             plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
@@ -40,7 +40,7 @@ function ArticleEditor(props) {
               let formData = new FormData();
               formData.append('image', blobInfo.blob());
 
-              fetch('https://api.ghar47.pk/media', {
+              fetch('----Api Url Here----', {
                 method: 'POST',
                 body: formData, // file Object
                 headers: {
